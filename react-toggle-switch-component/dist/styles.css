@@ -1,9 +1,11 @@
 .parent {
   position: relative;
-  width: 200px;
+  width: 150px;
   height: 64px;
-  background-color: lightgray;
   outline: black 2px solid;
+  display: flex;
+  align-items: center;
+  border-radius: 35px;
 }
 
 .toggle {
@@ -19,4 +21,18 @@
 
 .right {
   right: 0;
+}
+
+.text {
+  position: relative;
+  left: 200px;
+  margin-left: 25px;
+}
+
+.gray-background {
+  background-color: lightgray;
+}
+
+.green-background {
+  background-color: greenyellow;
 }

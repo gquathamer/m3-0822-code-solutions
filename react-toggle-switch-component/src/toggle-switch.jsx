@@ -16,20 +16,25 @@ export default class ToggleButton extends React.Component {
   }
 
   render() {
-    const parent = 'parent';
-    const toggle = 'toggle';
-    let position = 'left';
+    let positionClass = 'left';
+    let textContentClass = 'OFF';
+    let backgroundColorClass = 'gray-background';
 
     if (this.state.isToggled) {
-      position = 'right';
+      positionClass = 'right';
+      textContentClass = 'ON';
+      backgroundColorClass = 'green-background';
     } else {
-      position = 'left';
+      positionClass = 'left';
+      textContentClass = 'OFF';
+      backgroundColorClass = 'gray-background';
     }
 
     return (
       <>
-        <div className={parent}>
-          <div onClick={this.toggle} className={`${toggle} ${position}`}></div>
+        <div onClick={this.toggle} className={`parent ${backgroundColorClass}`}>
+          <div className={`toggle ${positionClass}`}></div>
+          <h2 className='text'>{textContentClass}</h2>
         </div>
       </>
     );
