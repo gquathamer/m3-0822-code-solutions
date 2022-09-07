@@ -1,0 +1,22 @@
+.parent {
+  position: relative;
+  width: 200px;
+  height: 64px;
+  background-color: lightgray;
+  outline: black 2px solid;
+}
+
+.toggle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: blue;
+  padding: 2rem;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
