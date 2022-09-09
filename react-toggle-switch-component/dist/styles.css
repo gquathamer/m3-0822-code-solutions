@@ -1,0 +1,38 @@
+.parent {
+  position: relative;
+  width: 150px;
+  height: 64px;
+  outline: black 2px solid;
+  display: flex;
+  align-items: center;
+  border-radius: 35px;
+}
+
+.toggle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: blue;
+  padding: 2rem;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
+
+.text {
+  position: relative;
+  left: 200px;
+  margin-left: 25px;
+}
+
+.gray-background {
+  background-color: lightgray;
+}
+
+.green-background {
+  background-color: greenyellow;
+}
