@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+label {
+  flex-basis: 100%;
+  margin: 1rem 0;
+}
+
+input {
+  flex-basis: 25%;
+  margin-right: 1rem;
+}
+
+input:focus {
+  box-shadow: 0 0 5px rgb(81 203 238 / 100%);
+  border: 1px solid rgb(81 203 238 / 100%);
+}
+
+p {
+  flex-basis: 100%;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
