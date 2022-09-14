@@ -13,7 +13,7 @@ export class Modal extends React.Component {
 export class Menu extends React.Component {
   render() {
     let visibility;
-    this.props.toggle ? visibility = 'show' : visibility = 'hide';
+    this.props.toggle ? visibility = 'show-menu' : visibility = '';
     return (
       <div className={`menu ${visibility}`}>
         <h1>Menu</h1>
@@ -49,19 +49,12 @@ export default class AppDrawer extends React.Component {
   }
 
   render() {
-    if (this.state.isOpen) {
-      return (
-        <div className='container' onClick={this.handleClick}>
-          <Menu toggle={this.state.isOpen} />
-          <Modal toggle={this.state.isOpen} />
-        </div>
-      );
-    } else {
-      return (
-        <div className='container'>
-          <FontAwesomeIcon size='2xl' icon={faBars} onClick={this.handleClick}/>
-        </div>
-      );
-    }
+    return (
+      <div className='container' onClick={this.handleClick}>
+        <FontAwesomeIcon size='2xl' icon={faBars} onClick={this.handleClick} className='absolute' />
+        <Menu toggle={this.state.isOpen} />
+        <Modal toggle={this.state.isOpen} />
+      </div>
+    );
   }
 }

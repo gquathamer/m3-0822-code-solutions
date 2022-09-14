@@ -8,22 +8,40 @@ body {
 
 .modal {
   background-color: rgb(0 0 0 / 75%);
-  flex-basis: 75%;
+  flex-basis: 100%;
 }
 
 .menu {
-  flex-basis: 25%;
+  position: absolute;
+  left: -200px;
+  transition: left 250ms;
+  background-color: white;
+  height: 100vh;
+  width: 200px;
+  flex-basis: 100%;
+  padding: 2rem;
 }
 
-.show {
-  display: block;
+.show-menu {
+  left: 0;
 }
 
 .hide {
   display: none;
 }
 
+.show {
+  display: block;
+}
+
 .container {
   display: flex;
   height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+  padding: 1rem;
 }
