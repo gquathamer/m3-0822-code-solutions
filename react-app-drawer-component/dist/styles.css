@@ -4,6 +4,22 @@
 
 body {
   margin: 0;
+  background-image: url("https://www.mercurynews.com/wp-content/uploads/2022/02/SJM-L-MONJOAN-0221-01_94320116.jpg?w=978");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 1rem 0;
+}
+
+li:hover {
+  cursor: pointer;
 }
 
 .modal {
