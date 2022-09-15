@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 25%;
+}
+
+.topic-card {
+  outline: 1px black solid;
+}
+
+.topic-header {
+  background-color: gray;
+}
+
+.padding {
+  padding: 1rem;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
