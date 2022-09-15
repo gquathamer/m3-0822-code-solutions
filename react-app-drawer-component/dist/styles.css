@@ -20,21 +20,25 @@ li {
 
 li:hover {
   cursor: pointer;
+  background-color: lightslategray;
 }
 
 .modal {
+  position: absolute;
+  right: -2000px;
+  transition: right 200ms;
   background-color: rgb(0 0 0 / 75%);
-  flex-basis: 100%;
+  height: 100vh;
+  width: 90%;
 }
 
 .menu {
   position: absolute;
-  left: -200px;
-  transition: left 250ms;
+  left: -1000px;
+  transition: left 200ms;
   background-color: white;
   height: 100vh;
-  width: 200px;
-  flex-basis: 100%;
+  width: 10%;
   padding: 2rem;
 }
 
@@ -42,12 +46,8 @@ li:hover {
   left: 0;
 }
 
-.hide {
-  display: none;
-}
-
-.show {
-  display: block;
+.show-modal {
+  right: 0;
 }
 
 .container {

@@ -5,7 +5,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 export class Modal extends React.Component {
   render() {
     let visibility;
-    this.props.isOpen ? visibility = 'show' : visibility = 'hide';
+    this.props.isOpen ? visibility = 'show-modal' : visibility = '';
     return <div onClick={this.props.clickHandler} className={`modal ${visibility}`}></div>;
   }
 }
@@ -13,7 +13,7 @@ export class Modal extends React.Component {
 class Menu extends React.Component {
   render() {
     let visibility;
-    this.props.isOpen ? visibility = 'show-menu' : visibility = 'menu';
+    this.props.isOpen ? visibility = 'show-menu' : visibility = '';
     return (
       <div className={`menu ${visibility}`}>
         <h1>Menu</h1>
