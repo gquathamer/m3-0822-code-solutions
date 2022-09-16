@@ -30,7 +30,7 @@ class Dots extends React.Component {
           this.props.numberOfImages.map((element, i) => {
             let icon;
             i === this.props.currentImageIndex ? icon = faCircle : icon = lightCircle;
-            return <FontAwesomeIcon className='circle' icon={icon} key={element.id} />;
+            return <FontAwesomeIcon className='circle' icon={icon} key={element.id} id={element.id} onClick={this.props.selectDot} />;
           })
         }
       </div>
@@ -58,7 +58,7 @@ export default class Carousel extends React.Component {
     this.moveCarouselLeft = this.moveCarouselLeft.bind(this);
     this.startCarousel = this.startCarousel.bind(this);
     this.stopCarousel = this.stopCarousel.bind(this);
-
+    this.selectDot = this.selectDot.bind(this);
   }
 
   componentDidMount() {
@@ -109,13 +109,25 @@ export default class Carousel extends React.Component {
     }, this.startCarousel());
   }
 
+  selectDot(event) {
+    this.stopCarousel();
+    for (let i = 0; i < this.props.imageURL.length; i++) {
+      if (event.target.id === this.props.imageURL[i].id) {
+        this.setState({
+          currentImageIndex: i
+        }, this.startCarousel());
+        return;
+      }
+    }
+  }
+
   render() {
     return (
       <div className='carousel'>
         <Arrow direction='left' moveLeft={this.moveCarouselLeft} />
         <Image id={this.props.imageURL[this.state.currentImageIndex].id} source={this.props.imageURL[this.state.currentImageIndex].url} />
         <Arrow direction='right' moveRight={this.moveCarouselRight} />
-        <Dots numberOfImages={this.props.imageURL} currentImageIndex={this.state.currentImageIndex} />
+        <Dots selectDot={this.selectDot} numberOfImages={this.props.imageURL} currentImageIndex={this.state.currentImageIndex} />
       </div>
     );
   }

@@ -15,6 +15,10 @@
   flex-basis: 25%;
 }
 
+.arrow:hover {
+  cursor: pointer;
+}
+
 .image-container {
   flex-basis: 50%;
 }
@@ -33,4 +37,8 @@
 
 .circle {
   margin: 0.5rem;
+}
+
+.circle:hover {
+  cursor: pointer;
 }
