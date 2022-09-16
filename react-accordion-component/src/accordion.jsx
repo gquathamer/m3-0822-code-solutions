@@ -43,7 +43,14 @@ export default class Accordion extends React.Component {
       <div className='container'>
         {
           this.props.topics.map(element => {
-            return <TopicCard key={element.id} clickCount={this.state.clickCount} clickedTopicID={this.state.clickedTopic} id={element.id} topic={element.topic} detail={element.detail} onClick={this.handleClick} />;
+            return <TopicCard
+              key={element.id}
+              clickCount={this.state.clickCount}
+              clickedTopicID={this.state.clickedTopic}
+              id={element.id} topic={element.topic}
+              detail={element.detail}
+              onClick={this.handleClick}
+            />;
           })
         }
       </div>
