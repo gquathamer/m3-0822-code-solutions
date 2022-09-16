@@ -54,21 +54,33 @@ export default class Carousel extends React.Component {
     this.state = {
       currentImageIndex: 0
     };
-    this.moveCarousel = this.moveCarousel.bind(this);
+    this.moveCarouselRight = this.moveCarouselRight.bind(this);
+    this.moveCarouselLeft = this.moveCarouselLeft.bind(this);
+    this.startCarousel = this.startCarousel.bind(this);
+    this.stopCarousel = this.stopCarousel.bind(this);
 
   }
 
   componentDidMount() {
-    this.timerID = setInterval(() => {
-      this.moveCarousel();
-    }, 3000);
+    this.startCarousel();
   }
 
   componentWillUnmount() {
+    this.stopCarousel();
+  }
+
+  stopCarousel() {
     clearInterval(this.timerID);
   }
 
-  moveCarousel() {
+  startCarousel() {
+    this.timerID = setInterval(() => {
+      this.moveCarouselRight();
+    }, 3000);
+  }
+
+  moveCarouselRight() {
+    this.stopCarousel();
     this.setState(previousState => {
       let newImageIndex;
       if (previousState.currentImageIndex + 1 < this.props.imageURL.length) {
@@ -79,15 +91,30 @@ export default class Carousel extends React.Component {
       return {
         currentImageIndex: newImageIndex
       };
-    });
+    }, this.startCarousel());
+  }
+
+  moveCarouselLeft() {
+    this.stopCarousel();
+    this.setState(previousState => {
+      let newImageIndex;
+      if (previousState.currentImageIndex - 1 < 0) {
+        newImageIndex = this.props.imageURL.length - 1;
+      } else {
+        newImageIndex = previousState.currentImageIndex - 1;
+      }
+      return {
+        currentImageIndex: newImageIndex
+      };
+    }, this.startCarousel());
   }
 
   render() {
     return (
       <div className='carousel'>
-        <Arrow direction='left' />
+        <Arrow direction='left' moveLeft={this.moveCarouselLeft} />
         <Image id={this.props.imageURL[this.state.currentImageIndex].id} source={this.props.imageURL[this.state.currentImageIndex].url} />
-        <Arrow direction='right' moveRight={this.moveCarousel} />
+        <Arrow direction='right' moveRight={this.moveCarouselRight} />
         <Dots numberOfImages={this.props.imageURL} currentImageIndex={this.state.currentImageIndex} />
       </div>
     );
