@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+.carousel {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow {
+  flex-basis: 25%;
+}
+
+.arrow:hover {
+  cursor: pointer;
+}
+
+.image-container {
+  flex-basis: 50%;
+}
+
+.dots {
+  flex-basis: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  margin: 0.5rem;
+}
+
+.circle:hover {
+  cursor: pointer;
+}
