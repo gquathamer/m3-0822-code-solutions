@@ -1,0 +1,106 @@
+User can sign up:
+
+User navigates to localhost:3000
+browser sends a get request to the server
+server sees that the incoming path is '/' so it simply returns the index.html document
+the browser begins parsing the html document
+sends additional request to retrieve the bootstrap library, and font awesome icons
+browser comes across the script tag with src=main.js
+  magic happens here that the dev middleware handles, it is creating the main.js on the fly
+Once the browser receives the main.js file from the server it begins to execute that
+(All of the jsx is compiled into js by webpack already)
+Initially in the main.js file the 'root' element is selected from the DOM and the the 'App' react component is rendered in this root
+In the 'App' component the constructor method is ran
+  state is set with initial values
+  handleSignIn and handleSignOut methods are defined and bound
+Render method is ran
+  checks the 'isAuthorizing' property of the state object which was set to null in the constructor
+  returns from the render method
+componentDidMount method is ran (one time in react element lifecycle)
+  sets an eventListener on the window object for hash changes
+  checking user's browser for a token
+    if truthy the token is decoded
+    if falsey the user variable is set to null
+  set the user in state object
+  isAuthorizing is then set to false (we're done checking)
+Because state changed we trigger a re-render
+isAuthorizing is false so the react component ('App') actually begins to render
+
+-------------------
+const AppContext = React.createContext()
+export default AppContext
+
+Above, AppContext is a 'context object'
+a 'context object' gives us the ability to create a 'context provider' which is a react element that contains 1 prop 'value'
+that prop is the value that you want to share with every child in the element tree, all elements in the tree will have access to that
+
+all components down the element tree that have 'opted in' to accessing that 'value' prop have a this.context property on them
+-------------------------
+
+Using the 'AppContext.Provider' react element to pass values down to 'Navbar' and 'PageContainer'
+'Navbar' is rendered
+  user and handlesignout are accessed via the context object
+  'Navbar' begins to render
+  user is still null so the 'sign in' and 'sign up' anchors in the navbar are rendered
+'PageContainer' is rendered
+  this component is basically 2 divs wrapped around the result of calling this.renderPage() which is passed from the 'App' component
+  the renderPage() method looks at the current path (route variable value)
+  will conditionally render a certain page based on value of current path
+  at this stage it would return the 'Home' component and begin rendering that
+    'Home' component is 'opted in' to the context object so looks at user property
+    if the user is not signed in (or null) it will re-direct to rendering the 'Redirect' component
+      'Redirect' component will look at the 'to' prop passed from 'Home' component
+      That is currently 'sign-in'
+      set the hash of the URL to 'sign-in'
+      updating the hash so we go to a different page essentially
+      this will trigger a re-render of the 'App' component by triggering a hash change which is being listened for in the componentDidMount method of the 'App' component
+      we parse the route at this point and setState with the updated route, which is what triggers the re-render
+At this point the entire 'App' component is re-rendered but when we get to the 'PageContainer' component, we call this.rederPage() with the hash now 'sign-in'
+This then renders the 'Auth' component
+This will render the 'AuthForm' component
+  In the initial state there's a username and password variable set to empty strings
+At this point if the user hasn't signed up they'll need to hit sign up in the top right corner, or register now in the bottom left
+this will change the hash and trigger another re-render of the 'App' component this will follow the same process as above except render the 'Auth' component with account creation statement
+there's an on change event listening to the inputs as the user types
+submit event sends the username and password back to the server
+fetch sends a POST request to the sign up route with current username and password as payload
+On the server the 'sign-up' route catches the request since it matches the method and path
+here argon 2 hashes the password
+the username and hashed password are inserted into the database
+the database sends back a result set
+the server then sends back a 201 status code along with the database result set to the browser
+the handle submit event on the auth form is waiting for a response back, once it gets it then changes the hash to 'sign-in'
+this triggers a re-render of the 'App' component
+the 'Auth' component is rendered again but with 'sign-in'
+the 'AuthForm' gets a new key so it unmounts the component and re-renders the 'AuthForm' component
+then the sign-in page is up
+
+------------------------------------
+
+User signs in
+
+Once the user signs in there's a POST request sent to the server
+there's a username property and password property attached as json payload
+the server receives these and then queries the database for the userid and hashedpassword saved in the db for the given username
+the provided password and the hashedpassword returned from the db are verified using argon2
+if they match a payload object is created
+then a jsonwebtoken is created and signed using the created payload and the token secret in our environment variables
+the token and payload are then sent back to the browser
+the 'AuthForm' component that initiated the fetch request then looks at the response and calls the onsignin callback that came all the way from 'App' component
+the webtoken that the server created is set into localstorage
+the user variable is set in the state object which triggers a re-render
+
+User can stay signed in
+
+The 'Auth' component is eventually rendered but the user variable is truthy now
+this triggers a render of the 'Redirect' and sets the url to just a hash
+this triggers another re-render of the 'App' component
+setstate happens and we just have a hash
+url is an empty string after we parse the route
+we do not redirect and now the rick roll thing shows
+the user is logged in so even if we refresh there's a jsonwebtoken in localstorage that decodes to an actual user
+
+User can sign sign sign out
+
+deletes the token from local storage
+sets the user to null in the 'App' component
