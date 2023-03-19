@@ -4,19 +4,13 @@ function takeNextSmallest(queue) {
   if (queue.peek() === undefined) {
     return queue.peek();
   }
-  let firstSmaller;
-  const arr = [];
-  while (queue.peek() !== undefined) {
-    const frontOfQueue = queue.dequeue();
-    if (frontOfQueue <= queue.peek() && firstSmaller === undefined) {
-      firstSmaller = frontOfQueue;
-    }
-    if (frontOfQueue > queue.peek()) {
-      arr.push(frontOfQueue);
-    }
+  let frontOfQueue = queue.dequeue();
+  if (queue.peek() === undefined) {
+    return frontOfQueue;
   }
-  for (const elem in arr) {
-    queue.enqueue(elem);
+  while (frontOfQueue > queue.peek()) {
+    queue.enqueue(frontOfQueue);
+    frontOfQueue = queue.dequeue();
   }
-  return firstSmaller;
+  return frontOfQueue;
 }
